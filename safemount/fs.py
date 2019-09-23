@@ -9,6 +9,8 @@ bp = pudb.set_trace
 
 from fuse import FUSE, FuseOSError, Operations
 
+escape_char = '='
+
 hex_values = {
     '0': 0, '1': 1, '2': 2, '3': 3, '4': 4,
     '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
@@ -16,8 +18,8 @@ hex_values = {
     'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15,
 }
 
-DO_NOT_ENCODE='/_.+,@#=' + string.ascii_letters + string.digits
-VALID_CHARS = DO_NOT_ENCODE + '%'
+DO_NOT_ENCODE='/_.+,@#%' + string.ascii_letters + string.digits
+VALID_CHARS = DO_NOT_ENCODE + escape_char
 
 def path_valid(s):
     for i in s:
@@ -25,14 +27,14 @@ def path_valid(s):
             raise FuseOSError(errno.EINVAL)
 
 def path_encode(s):
-    return ''.join([c if c in DO_NOT_ENCODE else "%%%02x" % ord(c) for c in s])
+    return ''.join([c if c in DO_NOT_ENCODE else "%s%02x" % (escape_char, ord(c)) for c in s])
 
 def path_decode(s):
     t = ''
     i = 0
     while i < len(s):
         c = s[i]
-        if c == '%':
+        if c == escape_char:
             digit_high, digit_low = s[i + 1], s[i + 2]
             i += 2
             if digit_high in hex_values and digit_low in hex_values:
@@ -77,10 +79,10 @@ class Passthrough(Operations):
         full_path_ = self._full_path(path)
         full_path = path_decode(full_path_)
 
-        #dirents = ['.', '..']
-        # We disable '.' and '..' as it is not desirable in simple shell
+        dirents = ['.', '..']
+        # We should disable '.' and '..' as it is not desirable in simple shell
         # scripts.
-        dirents = []
+        # dirents = []
         if os.path.isdir(full_path):
             dirents.extend(os.listdir(full_path))
         entries = [path_encode(r) for r in dirents]

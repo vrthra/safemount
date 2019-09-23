@@ -4,7 +4,7 @@ with open('README.md') as f:
 
 setuptools.setup(
         name='safemount',
-        version='0.4',
+        version='0.5',
         author='Rahul Gopinath',
         author_email='rahul@gopinath.org',
         description='A FUSE mount that only permits safe characters in the file names',
