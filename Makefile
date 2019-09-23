@@ -5,4 +5,4 @@ upload:
 	python -m twine upload dist/*
 
 clean:
-	rm -rf build
+	rm -rf build dist
