@@ -16,7 +16,7 @@ hex_values = {
     'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15,
 }
 
-DO_NOT_ENCODE='/_.+!(),' + string.ascii_letters + string.digits
+DO_NOT_ENCODE='/_.+,@#=' + string.ascii_letters + string.digits
 VALID_CHARS = DO_NOT_ENCODE + '%'
 
 def path_valid(s):
