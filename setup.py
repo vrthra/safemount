@@ -1,12 +1,14 @@
 import setuptools
+with open('README.md') as f:
+    long_description = f.read()
 
 setuptools.setup(
         name='safemount',
-        version='0.1',
+        version='0.2',
         author='Rahul Gopinath',
         author_email='rahul@gopinath.org',
         description='A FUSE mount that only permits safe characters in the file names',
-        long_description='A FUSE mount that only permits safe characters in the file names',
+        long_description=long_description,
         url='http://github.com/vrthra/safemount',
         packages=setuptools.find_packages(),
         classifiers=[
