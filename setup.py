@@ -4,13 +4,13 @@ with open('README.md') as f:
 
 setuptools.setup(
         name='safemount',
-        version='0.5',
+        version='0.6',
         author='Rahul Gopinath',
         author_email='rahul@gopinath.org',
         description='A FUSE mount that only permits safe characters in the file names',
         long_description=long_description,
         url='http://github.com/vrthra/safemount',
-        packages=setuptools.find_packages(),
+        packages=['safemount'],
         classifiers=[
             "Development Status :: 3 - Alpha",
             "Programming Language :: Python :: 3",
