@@ -16,7 +16,8 @@ or file names contain special characters.
 The usage is as follows:
 
 ```
-python -m safemount ./mydir ./mntpoint
+python3 -m pip install fusepy
+python3 -m safemount ./mydir ./mntpoint
 ```
 
 See also:
